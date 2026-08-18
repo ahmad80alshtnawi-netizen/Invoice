@@ -12,5 +12,9 @@ namespace BARAARama.Data
         }
 
         public DbSet<Material> Materials { get; set; }
+
+        public DbSet<Inventory> Inventories { get; set; } = null!;
+
+
     }
 }
