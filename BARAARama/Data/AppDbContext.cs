@@ -23,5 +23,6 @@ namespace BARAARama.Data
         public DbSet<Supplier> Suppliers { get; set; }
 
         public DbSet<SupplyEntry> SupplyEntries { get; set; }
+        
     }
 }
