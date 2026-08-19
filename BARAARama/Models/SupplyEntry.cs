@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace BARAARama.Models
 {
@@ -18,8 +19,8 @@ namespace BARAARama.Models
 
         [Range(1, int.MaxValue)]
         public int Quantity { get; set; }
-
         [Range(0.1, double.MaxValue)]
+        [Precision(18, 2)]
         public decimal Price { get; set; }
 
         [Display(Name = "Supplier")]
