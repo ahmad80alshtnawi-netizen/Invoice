@@ -1,0 +1,183 @@
+﻿@model IEnumerable<BARAARama.Models.Supplier>
+
+@{
+    ViewData["Title"] = "Supply History";
+}
+
+<style>
+    .supply-page {
+        max-width: 1200px;
+        margin: 40px auto;
+    }
+
+    .supply-card {
+        background: white;
+        border: 1px solid #e3eaf5;
+        border-radius: 18px;
+        padding: 30px;
+        box-shadow: 0 8px 28px rgba(31, 78, 121, 0.08);
+    }
+
+    .supply-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .supply-title {
+        color: #1e3a5f;
+        font-size: 2rem;
+        font-weight: 700;
+    }
+
+    .new-supply-btn {
+        background: #2f74c0;
+        color: white;
+        text-decoration: none;
+        border-radius: 10px;
+        padding: 11px 20px;
+        font-weight: 600;
+    }
+
+        .new-supply-btn:hover {
+            background: #245f9f;
+            color: white;
+        }
+
+    .supply-table {
+        margin-bottom: 0;
+    }
+
+        .supply-table thead th {
+            background: #f2f7fd;
+            color: #315d88;
+            border-bottom: 1px solid #dce7f3;
+            font-weight: 600;
+        }
+
+        .supply-table td {
+            vertical-align: middle;
+        }
+
+    .supplier-number {
+        background: #e8f1ff;
+        color: #2463a9;
+        padding: 5px 10px;
+        border-radius: 999px;
+        display: inline-block;
+        font-size: .85rem;
+        font-weight: 600;
+    }
+</style>
+
+
+<div class="supply-page">
+
+    <div class="supply-card">
+
+        <div class="supply-header">
+
+            <div>
+                <h1 class="supply-title">
+                    Supply History
+                </h1>
+
+                <p class="text-muted mb-0">
+                    Review recorded incoming supplier transactions.
+                </p>
+            </div>
+
+            <a asp-action="Create"
+                   class="new-supply-btn">
+                + New Supply
+            </a>
+
+        </div>
+
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+
+        @if (!Model.Any())
+        {
+            <div class="alert alert-info">
+                No supply transactions have been recorded yet.
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+
+                <table class="table supply-table">
+
+                    <thead>
+                        <tr>
+                            <th>Supplier</th>
+                            <th>Supplier Name</th>
+                            <th>Date</th>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var supplier in Model)
+                        {
+                            foreach (var entry in supplier.SupplyEntries)
+                            {
+                                <tr>
+
+                                    <td>
+                                        <span class="supplier-number">
+                                            @supplier.SupplierNumber
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        @supplier.SupplierName
+                                    </td>
+
+                                    <td>
+                                        @supplier.Date.ToString("dd/MM/yyyy HH:mm")
+                                    </td>
+
+                                    <td>
+                                        <strong>
+                                            @entry.ProductName
+                                        </strong>
+
+                                        <div class="small text-muted">
+                                            @entry.ProductNumber
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        @entry.Quantity
+                                    </td>
+
+                                    <td>
+                                        @entry.Price.ToString("0.00")
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        }
+
+    </div>
+
+</div>
