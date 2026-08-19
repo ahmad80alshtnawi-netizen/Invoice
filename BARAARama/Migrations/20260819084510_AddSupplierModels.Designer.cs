@@ -4,6 +4,7 @@ using BARAARama.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BARAARama.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260819084510_AddSupplierModels")]
+    partial class AddSupplierModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,8 +79,6 @@ namespace BARAARama.Migrations
                     b.HasKey("CashierWithdrawalId");
 
                     b.HasIndex("CashierId");
-
-                    b.HasIndex("MaterialId");
 
                     b.ToTable("CashierWithdrawals");
                 });
@@ -194,15 +195,6 @@ namespace BARAARama.Migrations
                         .IsRequired();
 
                     b.Navigation("Cashier");
-                    b.HasOne("BARAARama.Models.Material", "Material")
-                        .WithMany()
-                        .HasForeignKey("MaterialId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cashier");
-
-                    b.Navigation("Material");
                 });
 
             modelBuilder.Entity("BARAARama.Models.Inventory", b =>
