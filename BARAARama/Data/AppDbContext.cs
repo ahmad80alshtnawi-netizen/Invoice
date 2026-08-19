@@ -16,5 +16,8 @@ namespace BARAARama.Data
         public DbSet<Inventory> Inventories { get; set; } = null!;
 
 
+        public DbSet<Cashier> Cashiers { get; set; }
+
+        public DbSet<CashierWithdrawal> CashierWithdrawals { get; set; }
     }
 }

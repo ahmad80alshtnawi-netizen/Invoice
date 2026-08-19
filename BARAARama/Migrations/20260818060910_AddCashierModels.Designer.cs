@@ -4,6 +4,7 @@ using BARAARama.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BARAARama.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260818060910_AddCashierModels")]
+    partial class AddCashierModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,13 +25,6 @@ namespace BARAARama.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("BARAARama.Models.Inventory", b =>
-                {
-                    b.Property<int>("InventoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InventoryId"));
             modelBuilder.Entity("BARAARama.Models.Cashier", b =>
                 {
                     b.Property<int>("CashierId")
@@ -80,11 +76,6 @@ namespace BARAARama.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("InventoryId");
-
-                    b.HasIndex("MaterialId");
-
-                    b.ToTable("Inventories");
                     b.HasKey("CashierWithdrawalId");
 
                     b.HasIndex("CashierId");
@@ -110,15 +101,6 @@ namespace BARAARama.Migrations
                     b.ToTable("Materials");
                 });
 
-            modelBuilder.Entity("BARAARama.Models.Inventory", b =>
-                {
-                    b.HasOne("BARAARama.Models.Material", "Material")
-                        .WithMany()
-                        .HasForeignKey("MaterialId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Material");
             modelBuilder.Entity("BARAARama.Models.CashierWithdrawal", b =>
                 {
                     b.HasOne("BARAARama.Models.Cashier", "Cashier")
