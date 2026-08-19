@@ -12,5 +12,9 @@ namespace BARAARama.Data
         }
 
         public DbSet<Material> Materials { get; set; }
+
+        public DbSet<Cashier> Cashiers { get; set; }
+
+        public DbSet<CashierWithdrawal> CashierWithdrawals { get; set; }
     }
 }
